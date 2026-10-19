@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>برامج أرامكو | Aramco Programs</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Light Mode Theme - Inspired by Aramco Logo */
+            --bg-primary: #f8fafc;
+            --bg-surface: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --brand-green: #00a859;
+            --brand-blue: #00a3e0;
+            --brand-dark-blue: #003366;
+            --accent-gradient: linear-gradient(135deg, #00a859 0%, #00a3e0 100%);
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
+            --nav-bg: rgba(255, 255, 255, 0.85);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Mode Theme */
+            --bg-primary: #0b1323;
+            --bg-surface: #111c30;
+            --bg-card: #152238;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-color: #1e2d4a;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.3);
+            --nav-bg: rgba(11, 19, 35, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            font-family: 'Tajawal', 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            padding-top: 90px;
+            padding-bottom: 60px;
+        }
+
+        body[lang="en"] {
+            font-family: 'Inter', 'Tajawal', sans-serif;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 75px;
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: var(--accent-gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .brand-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background-color: rgba(0, 168, 89, 0.1);
+            color: var(--brand-green);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .btn-link:hover {
+            background-color: rgba(0, 168, 89, 0.2);
+        }
+
+        .btn-control {
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-surface);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-control:hover {
+            border-color: var(--brand-blue);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 40px 0 30px 0;
+        }
+
+        .hero h1 {
+            font-size: 2.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Countdowns Grid */
+        .countdowns-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 50px;
+        }
+
+        .timer-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+        }
+
+        .timer-title {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .timer-date {
+            font-size: 0.9rem;
+            color: var(--brand-blue);
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .timer-units {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .timer-unit {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            padding: 10px 14px;
+            border-radius: 10px;
+            min-width: 65px;
+        }
+
+        .timer-unit .number {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .timer-unit .label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        /* Program Cards */
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 600px) {
+            .programs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .program-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .program-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: rgba(0, 168, 89, 0.4);
+        }
+
+        .program-header {
+            margin-bottom: 16px;
+        }
+
+        .program-header h2 {
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .program-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        /* FAQs inside cards */
+        .faq-section {
+            border-top: 1px solid var(--border-color);
+            padding-top: 16px;
+            margin-bottom: 20px;
+        }
+
+        .faq-item {
+            margin-bottom: 12px;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .faq-answer {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-group {
+            width: 100%;
+            padding: 10px 16px;
+            border-radius: 10px;
+            background: var(--accent-gradient);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .btn-group:hover {
+            opacity: 0.92;
+        }
+
+        /* Support & Links Section */
+        .support-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .support-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .btn-secondary {
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-surface);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--brand-blue);
+            color: var(--brand-blue);
+        }
+
+        /* Footer Goal Banner */
+        footer {
+            background-color: var(--bg-surface);
+            border-top: 1px solid var(--border-color);
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .goal-box {
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.8;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="container nav-content">
+            <a href="#" class="brand-logo">
+                <div class="logo-icon">أ</div>
+                <span class="brand-title" id="nav-title">برامج أرامكو</span>
+            </a>
+            
+            <div class="nav-controls">
+                <a href="https://t.me/Aramco28" target="_blank" class="btn-link">
+                    📢 <span id="nav-channel">القناة الأساسية</span>
+                </a>
+                <button class="btn-control" id="theme-toggle" onclick="toggleTheme()">
+                    🌙 <span id="theme-text">الداكن</span>
+                </button>
+                <button class="btn-control" id="lang-toggle" onclick="toggleLanguage()">
+                    🌐 <span id="lang-text">English</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 id="hero-title">برامج أرامكو التعليمية والتدريبية</h1>
+            <p id="hero-subtitle">دليلك الشامل ومجموعات التواصل للاستعداد لبرامج أرامكو السعودية</p>
+        </section>
+
+        <!-- Countdowns Section -->
+        <section class="countdowns-grid">
+            <!-- Timer 1 -->
+            <div class="timer-card">
+                <div class="timer-title" id="t1-title">الموعد المتوقع لنزول المكافأة المالية</div>
+                <div class="timer-date">10 يناير (24 رجب)</div>
+                <div class="timer-units" id="timer-stipend">
+                    <div class="timer-unit"><div class="number" id="d1">--</div><div class="label" id="lbl-d1">يوم</div></div>
+                    <div class="timer-unit"><div class="number" id="h1">--</div><div class="label" id="lbl-h1">ساعة</div></div>
+                    <div class="timer-unit"><div class="number" id="m1">--</div><div class="label" id="lbl-m1">دقيقة</div></div>
+                    <div class="timer-unit"><div class="number" id="s1">--</div><div class="label" id="lbl-s1">ثانية</div></div>
+                </div>
+            </div>
+
+            <!-- Timer 2 -->
+            <div class="timer-card">
+                <div class="timer-title" id="t2-title">الموعد المتوقع لفتح تسجيل طموح والتدريب الصيفي</div>
+                <div class="timer-date">20 مارس (11 شوال)</div>
+                <div class="timer-units" id="timer-registration">
+                    <div class="timer-unit"><div class="number" id="d2">--</div><div class="label" id="lbl-d2">يوم</div></div>
+                    <div class="timer-unit"><div class="number" id="h2">--</div><div class="label" id="lbl-h2">ساعة</div></div>
+                    <div class="timer-unit"><div class="number" id="m2">--</div><div class="label" id="lbl-m2">دقيقة</div></div>
+                    <div class="timer-unit"><div class="number" id="s2">--</div><div class="label" id="lbl-s2">ثانية</div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Programs Section -->
+        <h2 class="section-title" id="programs-heading">البرامج المتاحة</h2>
+        <section class="programs-grid">
+
+            <!-- Card 1: Summer Enrichment -->
+            <div class="program-card">
+                <div>
+                    <div class="program-header">
+                        <h2 id="p1-title">برنامج التدريب الصيفي (Summer Enrichment Program)</h2>
+                    </div>
+                    <p class="program-desc" id="p1-desc">برنامج موجه لطلاب وطالبات المرحلة الثانوية خلال فترة الصيف لتطوير المهارات الأكاديمية والشخصية واللغة الإنجليزية.</p>
+                    
+                    <div class="faq-section">
+                        <div class="faq-item">
+                            <div class="faq-question" id="p1-q1">من الفئة المستهدفة؟</div>
+                            <div class="faq-answer" id="p1-a1">طلاب الصف الأول والثاني والثانوي.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question" id="p1-q2">هل يوجد مكافأة مالية وكم قدرها؟</div>
+                            <div class="faq-answer" id="p1-a2">نعم توجد مكافأة مالية بقيمة 1500 ريال تعطى بنهاية البرنامج مع شهادة بعد إتمام البرنامج.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question" id="p1-q3">كم تأخذ لتعطى المكافأة؟</div>
+                            <div class="faq-answer" id="p1-a3">تأخذ عادة من 4 إلى 6 أشهر لتعطى المكافأة.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question" id="p1-q4">متى تعطى الشهادة؟</div>
+                            <div class="faq-answer" id="p1-a4">الشهادة تعطى بعد إتمام البرنامج بأسبوعين أو شهر تقريباً.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-actions">
+                    <a href="https://t.me/GAAT2025" target="_blank" class="btn-group" id="btn-p1">الانضمام لمجموعة التدريب الصيفي</a>
+                </div>
+            </div>
+
+            <!-- Card 2: Tomoh -->
+            <div class="program-card">
+                <div>
+                    <div class="program-header">
+                        <h2 id="p2-title">برنامج طموح (Tomoh Program)</h2>
+                    </div>
+                    <p class="program-desc" id="p2-desc">برنامج إثرائي مخصص للمتميزين والموهوبين من طلاب الثانوية لتأهيلهم لاختبارات SAT وIELTS/TOEFL وتسهيل قبولهم في أفضل الجامعات العالمية.</p>
+                    
+                    <div class="faq-section">
+                        <div class="faq-item">
+                            <div class="faq-question" id="p2-q1">ما هي أهم شروط التقديم؟</div>
+                            <div class="faq-answer" id="p2-a1">الحصول على درجات مرتفعة جداً في المواد العلمية واللغة الإنجليزية وترشيح المدرسة/الموهبة.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question" id="p2-q2">ما الفائدة الأساسية من طموح؟</div>
+                            <div class="faq-answer" id="p2-a2">يزيد من فرص قبولك في برنامج ابتعاث أرامكو (CPP) وتأهيلك للجامعات المرموقة عالمياً.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-actions">
+                    <a href="https://t.me/artomoh28" target="_blank" class="btn-group" id="btn-p2">الانضمام لمجموعة طموح</a>
+                </div>
+            </div>
+
+            <!-- Card 3: ITC -->
+            <div class="program-card">
+                <div>
+                    <div class="program-header">
+                        <h2 id="p3-title">مركز التدريب الصناعي (ITC) - Industrial Training Center</h2>
+                    </div>
+                    <p class="program-desc" id="p3-desc">برنامج التدرج المهني لخريجي وخريجات الثانوية لتأهيلهم وتدريبهم للعمل في وظائف تشغيلية وفنية ومكتبية في أرامكو.</p>
+                    
+                    <div class="faq-section">
+                        <div class="faq-item">
+                            <div class="faq-question" id="p3-q1">ما هي شروط القبول الأساسية؟</div>
+                            <div class="faq-answer" id="p3-a1">معدل ثانوية 72%+ ودرجة القدرات 70%+، وألا يتجاوز العمر 24 سنة.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question" id="p3-q2">كم مدة الدراسة والمكافأة؟</div>
+                            <div class="faq-answer" id="p3-a2">مدة التدريب حوالي سنتين مع تقديم مكافأة شهرية وتأمين طبي وسكن/مواصلات.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question" id="p3-q3">هل التوظيف مضمون بعد التخرج؟</div>
+                            <div class="faq-answer" id="p3-a3">نعم، يعتبر تدريجاً منتهياً بالتوظيف المباشر في الشركة بعد اجتياز متطلبات التدريب.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-actions">
+                    <a href="https://t.me/aritc28" target="_blank" class="btn-group" id="btn-p3">الانضمام لمجموعة ITC</a>
+                </div>
+            </div>
+
+            <!-- Card 4: CPP -->
+            <div class="program-card">
+                <div>
+                    <div class="program-header">
+                        <h2 id="p4-title">برامج الابتعاث (CPP / CDPNE)</h2>
+                    </div>
+                    <p class="program-desc" id="p4-desc">برنامج إعداد الجامعيين لخريجي الثانوية المتميزين، يتضمن سنة تحضيرية مكثفة بالظهران ثم الابتعاث للدراسة الجامعية في أرقى الجامعات العالمية أو المحلية.</p>
+                    
+                    <div class="faq-section">
+                        <div class="faq-item">
+                            <div class="faq-question" id="p4-q1">ما هي الشروط المطلوبة؟</div>
+                            <div class="faq-answer" id="p4-a1">معدل ثانوية مرتفع جداً (90%+ علمي) ودرجة قدرات عالية (90%+).</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question" id="p4-q2">ماذا يتضمن اختبار القبول؟</div>
+                            <div class="faq-answer" id="p4-a2">اختبارات قياسية في اللغة الإنجليزية والرياضيات تعقدها الشركة.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question" id="p4-q3">ما هي مميزات البرنامج؟</div>
+                            <div class="faq-answer" id="p4-a3">تغطية كاملة لتكاليف الدراسة، رواتب ومكافآت شهرية، تأمين طبي، وتوظيف مباشر بشركة أرامكو.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-actions">
+                    <a href="https://t.me/aramcocpp28" target="_blank" class="btn-group" id="btn-p4">الانضمام لمجموعة الابتعاث</a>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Support Section -->
+        <section class="support-card">
+            <h2 style="font-size: 1.3rem; margin-bottom: 8px;" id="support-title">الدعم الفني والإنضمام للإشراف</h2>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;" id="support-desc">هل لديك أي استفسارات أو ترغب في التقديم على إشراف المجموعة؟ يمكنك التواصل معنا عبر البوت المخصص.</p>
+            <div class="support-links">
+                <a href="https://t.me/sahelp28_bot" target="_blank" class="btn-secondary" id="btn-support">🤖 بوت الدعم الفني</a>
+                <a href="https://t.me/sahelp28_bot" target="_blank" class="btn-secondary" id="btn-admin">⭐ التقديم على الإشراف</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Goal -->
+    <footer>
+        <div class="container">
+            <div class="goal-box" id="footer-goal">
+                💡 هدفنا هنا: نختصر عليكم الطريق، نجمع لكم الشروط، نسهل فهم طبيعة الاختبارات، ونشارككم النصائح وتجارب القبول خطوة بخطوة حتى تصلوا لأهدافكم.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        let currentLang = 'ar';
+        let currentTheme = 'light';
+
+        // Translations Data
+        const translations = {
+            ar: {
+                navTitle: "برامج أرامكو",
+                navChannel: "القناة الأساسية",
+                heroTitle: "برامج أرامكو التعليمية والتدريبية",
+                heroSubtitle: "دليلك الشامل ومجموعات التواصل للاستعداد لبرامج أرامكو السعودية",
+                t1Title: "الموعد المتوقع لنزول المكافأة المالية",
+                t2Title: "الموعد المتوقع لفتح تسجيل طموح والتدريب الصيفي",
+                programsHeading: "البرامج المتاحة",
+                lblD: "يوم", lblH: "ساعة", lblM: "دقيقة", lblS: "ثانية",
+                p1Title: "برنامج التدريب الصيفي (Summer Enrichment Program)",
+                p1Desc: "برنامج موجه لطلاب وطالبات المرحلة الثانوية خلال فترة الصيف لتطوير المهارات الأكاديمية والشخصية واللغة الإنجليزية.",
+                p1q1: "من الفئة المستهدفة؟", p1a1: "طلاب الصف الأول والثاني والثانوي.",
+                p1q2: "هل يوجد مكافأة مالية وكم قدرها؟", p1a2: "نعم توجد مكافأة مالية بقيمة 1500 ريال تعطى بنهاية البرنامج مع شهادة بعد إتمام البرنامج.",
+                p1q3: "كم تأخذ لتعطى المكافأة؟", p1a3: "تأخذ عادة من 4 إلى 6 أشهر لتعطى المكافأة.",
+                p1q4: "متى تعطى الشهادة؟", p1a4: "الشهادة تعطى بعد إتمام البرنامج بأسبوعين أو شهر تقريباً.",
+                btnP1: "الانضمام لمجموعة التدريب الصيفي",
+                p2Title: "برنامج طموح (Tomoh Program)",
+                p2Desc: "برنامج إثرائي مخصص للمتميزين والموهوبين من طلاب الثانوية لتأهيلهم لاختبارات SAT وIELTS/TOEFL وتسهيل قبولهم في أفضل الجامعات العالمية.",
+                p2q1: "ما هي أهم شروط التقديم؟", p2a1: "الحصول على درجات مرتفعة جداً في المواد العلمية واللغة الإنجليزية وترشيح المدرسة/الموهبة.",
+                p2q2: "ما الفائدة الأساسية من طموح؟", p2a2: "يزيد من فرص قبولك في برنامج ابتعاث أرامكو (CPP) وتأهيلك للجامعات المرموقة عالمياً.",
+                btnP2: "الانضمام لمجموعة طموح",
+                p3Title: "مركز التدريب الصناعي (ITC) - Industrial Training Center",
+                p3Desc: "برنامج التدرج المهني لخريجي وخريجات الثانوية لتأهيلهم وتدريبهم للعمل في وظائف تشغيلية وفنية ومكتبية في أرامكو.",
+                p3q1: "ما هي شروط القبول الأساسية؟", p3a1: "معدل ثانوية 72%+ ودرجة القدرات 70%+، وألا يتجاوز العمر 24 سنة.",
+                p3q2: "كم مدة الدراسة والمكافأة؟", p3a2: "مدة التدريب حوالي سنتين مع تقديم مكافأة شهرية وتأمين طبي وسكن/مواصلات.",
+                p3q3: "هل التوظيف مضمون بعد التخرج؟", p3a3: "نعم، يعتبر تدريجاً منتهياً بالتوظيف المباشر في الشركة بعد اجتياز متطلبات التدريب.",
+                btnP3: "الانضمام لمجموعة ITC",
+                p4Title: "برامج الابتعاث (CPP / CDPNE)",
+                p4Desc: "برنامج إعداد الجامعيين لخريجي الثانوية المتميزين، يتضمن سنة تحضيرية مكثفة بالظهران ثم الابتعاث للدراسة الجامعية في أرقى الجامعات العالمية أو المحلية.",
+                p4q1: "ما هي الشروط المطلوبة؟", p4a1: "معدل ثانوية مرتفع جداً (90%+ علمي) ودرجة قدرات عالية (90%+).",
+                p4q2: "ماذا يتضمن اختبار القبول؟", p4a2: "اختبارات قياسية في اللغة الإنجليزية والرياضيات تعقدها الشركة.",
+                p4q3: "ما هي مميزات البرنامج؟", p4a3: "تغطية كاملة لتكاليف الدراسة، رواتب ومكافآت شهرية، تأمين طبي، وتوظيف مباشر بشركة أرامكو.",
+                btnP4: "الانضمام لمجموعة الابتعاث",
+                supportTitle: "الدعم الفني والإنضمام للإشراف",
+                supportDesc: "هل لديك أي استفسارات أو ترغب في التقديم على إشراف المجموعة؟ يمكنك التواصل معنا عبر البوت المخصص.",
+                btnSupport: "🤖 بوت الدعم الفني",
+                btnAdmin: "⭐ التقديم على الإشراف",
+                footerGoal: "💡 هدفنا هنا: نختصر عليكم الطريق، نجمع لكم الشروط، نسهل فهم طبيعة الاختبارات، ونشارككم النصائح وتجارب القبول خطوة بخطوة حتى تصلوا لأهدافكم."
+            },
+            en: {
+                navTitle: "Aramco Programs",
+                navChannel: "Main Channel",
+                heroTitle: "Aramco Educational & Training Programs",
+                heroSubtitle: "Your comprehensive guide and community groups for Saudi Aramco programs",
+                t1Title: "Expected Stipend Date",
+                t2Title: "Expected Registration Date (Tomoh & Summer Program)",
+                programsHeading: "Available Programs",
+                lblD: "Days", lblH: "Hours", lblM: "Mins", lblS: "Secs",
+                p1Title: "Summer Enrichment Program",
+                p1Desc: "A summer program designed for high school students to enhance academic, personal, and English language skills.",
+                p1q1: "Who is the target audience?", p1a1: "1st and 2nd year high school students.",
+                p1q2: "Is there a stipend?", p1a2: "Yes, a stipend of 1500 SAR is provided at the end along with a completion certificate.",
+                p1q3: "How long does it take to receive the stipend?", p1a3: "It usually takes 4 to 6 months.",
+                p1q4: "When is the certificate issued?", p1a4: "Issued approximately 2 weeks to a month after program completion.",
+                btnP1: "Join Summer Program Group",
+                p2Title: "Tomoh Program",
+                p2Desc: "An enrichment program for talented high schoolers to prepare for SAT/IELTS/TOEFL and facilitate admission to top global universities.",
+                p2q1: "What are the main requirements?", p2a1: "High grades in STEM subjects and English, plus school/Mawhiba nomination.",
+                p2q2: "What is the main benefit?", p2a2: "Increases acceptance chances in Aramco's College Prep Program (CPP).",
+                btnP2: "Join Tomoh Group",
+                p3Title: "Industrial Training Center (ITC)",
+                p3Desc: "Vocational training program for high school graduates for operational, technical, and administrative positions in Aramco.",
+                p3q1: "Basic admission requirements?", p3a1: "High school GPA 72%+, Qudrat 70%+, and age under 24.",
+                p3q2: "Duration and stipend?", p3a2: "Around 2 years of training with monthly stipend, medical insurance, and housing/transportation.",
+                p3q3: "Is job guaranteed upon graduation?", p3a3: "Yes, direct employment in Aramco upon successfully passing training requirements.",
+                btnP3: "Join ITC Group",
+                p4Title: "College Prep Program (CPP / CDPNE)",
+                p4Desc: "College prep for top high school graduates, featuring an intensive foundation year in Dhahran followed by university scholarship.",
+                p4q1: "What are the requirements?", p4a1: "Very high GPA (90%+ science track) and high Qudrat score (90%+).",
+                p4q2: "What does the entry test include?", p4a2: "Standardized tests in English and Mathematics held by Aramco.",
+                p4q3: "Program benefits?", p4a3: "Full tuition coverage, monthly allowance, health insurance, and direct Aramco employment.",
+                btnP4: "Join CPP Group",
+                supportTitle: "Technical Support & Moderation",
+                supportDesc: "Have questions or want to apply for group moderation? Contact us via our support bot.",
+                btnSupport: "🤖 Support Bot",
+                btnAdmin: "⭐ Apply for Moderation",
+                footerGoal: "💡 Our goal here: to shorten your path, gather the requirements, simplify test details, and share tips and admission experiences step-by-step until you reach your goals."
+            }
+        };
+
+        // Theme Switcher
+        function toggleTheme() {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            document.getElementById('theme-text').innerText = currentTheme === 'light' ? (currentLang === 'ar' ? 'الداكن' : 'Dark') : (currentLang === 'ar' ? 'الفاتح' : 'Light');
+        }
+
+        // Language Switcher
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            document.body.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            document.body.setAttribute('lang', currentLang);
+            document.getElementById('lang-text').innerText = currentLang === 'ar' ? 'English' : 'عربي';
+            document.getElementById('theme-text').innerText = currentTheme === 'light' ? (currentLang === 'ar' ? 'الداكن' : 'Dark') : (currentLang === 'ar' ? 'الفاتح' : 'Light');
+            
+            // Update Text Content
+            const t = translations[currentLang];
+            for (let key in t) {
+                const el = document.getElementById(key.replace(/([A-Z])/g, "-$1").toLowerCase());
+                if (el) el.innerText = t[key];
+            }
+            // Update labels
+            document.getElementById('lbl-d1').innerText = t.lblD; document.getElementById('lbl-h1').innerText = t.lblH;
+            document.getElementById('lbl-m1').innerText = t.lblM; document.getElementById('lbl-s1').innerText = t.lblS;
+            document.getElementById('lbl-d2').innerText = t.lblD; document.getElementById('lbl-h2').innerText = t.lblH;
+            document.getElementById('lbl-m2').innerText = t.lblM; document.getElementById('lbl-s2').innerText = t.lblS;
+        }
+
+        // Countdown Timer Logic
+        function startCountdowns() {
+            const date1 = new Date("Jan 10, 2027 00:00:00").getTime();
+            const date2 = new Date("Mar 20, 2027 00:00:00").getTime();
+
+            setInterval(() => {
+                const now = new Date().getTime();
+
+                // Timer 1
+                const diff1 = date1 - now;
+                if(diff1 > 0) {
+                    document.getElementById('d1').innerText = Math.floor(diff1 / (1000 * 60 * 60 * 24));
+                    document.getElementById('h1').innerText = Math.floor((diff1 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    document.getElementById('m1').innerText = Math.floor((diff1 % (1000 * 60 * 60)) / (1000 * 60));
+                    document.getElementById('s1').innerText = Math.floor((diff1 % (1000 * 60)) / 1000);
+                }
+
+                // Timer 2
+                const diff2 = date2 - now;
+                if(diff2 > 0) {
+                    document.getElementById('d2').innerText = Math.floor(diff2 / (1000 * 60 * 60 * 24));
+                    document.getElementById('h2').innerText = Math.floor((diff2 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    document.getElementById('m2').innerText = Math.floor((diff2 % (1000 * 60 * 60)) / (1000 * 60));
+                    document.getElementById('s2').innerText = Math.floor((diff2 % (1000 * 60)) / 1000);
+                }
+            }, 1000);
+        }
+
+        startCountdowns();
+    </script>
+</body>
+</html>
